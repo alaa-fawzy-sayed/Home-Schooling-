@@ -107,7 +107,7 @@ function AdminPermissionsPage() {
     setAssignedUsers((prev) => [...prev, newUser]);
     setAssignOpen(false);
     resetForm();
-    showToast(lang === "ar" ? "تم تعيين المدرّب وإنشاء حسابه بنجاح ✓" : "Instructor assigned successfully ✓");
+    showToast(lang === "ar" ? "تم تعيين الأستاذ وإنشاء حسابه بنجاح ✓" : "Professor assigned successfully ✓");
   };
 
   const handleEditUser = () => {
@@ -150,17 +150,17 @@ function AdminPermissionsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl lg:text-3xl font-bold"><span className="gradient-text">{lang === "ar" ? "الأدوار والصلاحيات" : "Roles & Permissions"}</span></h1>
-          <p className="text-sm text-muted-foreground mt-1">{lang === "ar" ? "تعيين المدرّبين وتحديد صلاحياتهم ببيانات دخول خاصة" : "Assign instructors with login credentials and specific permissions"}</p>
+          <p className="text-sm text-muted-foreground mt-1">{lang === "ar" ? "تعيين الأساتذة وتحديد صلاحياتهم ببيانات دخول خاصة" : "Assign professors with login credentials and specific permissions"}</p>
         </div>
         <button onClick={() => { resetForm(); setAssignOpen(true); }} className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl gradient-primary text-white text-sm font-semibold neon-glow hover:scale-105 transition-transform">
-          <UserPlus className="h-4 w-4" /> {lang === "ar" ? "تعيين مدرّب" : "Assign Instructor"}
+          <UserPlus className="h-4 w-4" /> {lang === "ar" ? "تعيين أستاذ" : "Assign Professor"}
         </button>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { icon: Users, label: lang === "ar" ? "مدرّبين معيّنين" : "Assigned", value: assignedUsers.length, color: "text-blue-400" },
+          { icon: Users, label: lang === "ar" ? "أساتذة معيّنين" : "Assigned", value: assignedUsers.length, color: "text-blue-400" },
           { icon: Shield, label: lang === "ar" ? "أدوار" : "Roles", value: roles.length, color: "text-purple-400" },
           { icon: Key, label: lang === "ar" ? "صلاحيات" : "Permissions", value: allPermissions.length, color: "text-amber-400" },
           { icon: CheckCircle2, label: lang === "ar" ? "متاح للتعيين" : "Available", value: availableInstructors.length, color: "text-green-400" },
@@ -172,7 +172,7 @@ function AdminPermissionsPage() {
       {/* Tabs */}
       <div className="flex gap-2">
         {[
-          { id: "users" as const, label: lang === "ar" ? "المدرّبين المعيّنين" : "Assigned Users" },
+          { id: "users" as const, label: lang === "ar" ? "الأساتذة المعيّنين" : "Assigned Professors" },
           { id: "roles" as const, label: lang === "ar" ? "الأدوار" : "Roles" },
           { id: "matrix" as const, label: lang === "ar" ? "مصفوفة المقارنة" : "Comparison Matrix" },
         ].map((tab) => (
@@ -227,7 +227,7 @@ function AdminPermissionsPage() {
           {assignedUsers.length === 0 && (
             <div className="glass rounded-2xl p-12 text-center">
               <Users className="h-16 w-16 mx-auto mb-4 text-muted-foreground/30" />
-              <p className="text-muted-foreground">{lang === "ar" ? "لم يتم تعيين أي مدرّب بعد" : "No instructors assigned yet"}</p>
+              <p className="text-muted-foreground">{lang === "ar" ? "لم يتم تعيين أي أستاذ بعد" : "No professors assigned yet"}</p>
             </div>
           )}
         </div>
@@ -279,12 +279,12 @@ function AdminPermissionsPage() {
       {/* === MODALS === */}
 
       {/* Assign Instructor Modal */}
-      <Modal open={assignOpen} onClose={() => setAssignOpen(false)} title={lang === "ar" ? "تعيين مدرّب جديد" : "Assign New Instructor"} size="xl"
+      <Modal open={assignOpen} onClose={() => setAssignOpen(false)} title={lang === "ar" ? "تعيين أستاذ جديد" : "Assign New Professor"} size="xl"
         footer={<><BtnSecondary onClick={() => setAssignOpen(false)}>{lang === "ar" ? "إلغاء" : "Cancel"}</BtnSecondary><BtnPrimary onClick={handleAssign} disabled={!selectedInstructor || !formUsername || !formPassword}>{lang === "ar" ? "تعيين وإنشاء حساب" : "Assign & Create Account"}</BtnPrimary></>}>
         <div className="space-y-5">
           {/* Step 1: Select Instructor */}
           <div>
-            <label className="text-xs font-bold text-primary mb-2 block flex items-center gap-1"><span className="w-5 h-5 rounded-full gradient-primary text-white text-[10px] flex items-center justify-center font-bold">1</span> {lang === "ar" ? "اختر المدرّب" : "Select Instructor"}</label>
+            <label className="text-xs font-bold text-primary mb-2 block flex items-center gap-1"><span className="w-5 h-5 rounded-full gradient-primary text-white text-[10px] flex items-center justify-center font-bold">1</span> {lang === "ar" ? "اختر الأستاذ" : "Select Professor"}</label>
             {availableInstructors.length > 0 ? (
               <div className="grid sm:grid-cols-2 gap-2 max-h-40 overflow-auto p-2 rounded-xl bg-accent/10 border border-border/30">
                 {availableInstructors.map((inst) => (
@@ -300,7 +300,7 @@ function AdminPermissionsPage() {
                 ))}
               </div>
             ) : (
-              <div className="p-4 rounded-xl bg-accent/10 text-center text-xs text-muted-foreground">{lang === "ar" ? "جميع المدرّبين تم تعيينهم بالفعل" : "All instructors are already assigned"}</div>
+              <div className="p-4 rounded-xl bg-accent/10 text-center text-xs text-muted-foreground">{lang === "ar" ? "جميع الأساتذة تم تعيينهم بالفعل" : "All professors are already assigned"}</div>
             )}
           </div>
 
